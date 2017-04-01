@@ -14,6 +14,7 @@ class CustomTabBarViewController: UITabBarController {
         super.viewDidLoad()
         
         tabBar.tintColor = NAVIGATIONBAR_COLOR
+        tabBar.frame = CGRect(x: 0, y: SCREEN_HEIGHT - TABBAR_HEIGHT, width: SCREEN_WIDTH, height: TABBAR_HEIGHT)
         addAllChildViewControllers()
     }
     
@@ -31,13 +32,15 @@ class CustomTabBarViewController: UITabBarController {
         
         childController.title = title
         childController.tabBarItem.title = title
-        childController.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -3)
-        childController.tabBarItem.setTitleTextAttributes([NSFontAttributeName : UIFont.systemFont(ofSize: 12)], for: .normal)
+        childController.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -4)
+        childController.tabBarItem.setTitleTextAttributes([NSFontAttributeName : UIFont.systemFont(ofSize: 11)], for: .normal)
+        childController.tabBarItem.setTitleTextAttributes([NSFontAttributeName : UIFont.systemFont(ofSize: 14)], for: .selected)
         childController.tabBarItem.image = UIImage(named: imageName)?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
         childController.tabBarItem.selectedImage = UIImage(named: selectedImageName)?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
         childController.tabBarItem.setTitleTextAttributes(
             [NSForegroundColorAttributeName: HIGHLIGHTED_FONT_COLOR], for: UIControlState.selected)
         
+//        childController.navigationController?.navigationBar.isHidden = true // hide navigation bar
         addChildViewController(childController)
     }
 
