@@ -1,8 +1,8 @@
-# Project 1 - *Name of App Here*
+# Project 1 - *Flicks Movie*
 
-**Name of your app** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
+**Flicks Movie** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **X** hours spent in total
+Time spent: 6 hours spent in total
 
 ## User Stories
 
