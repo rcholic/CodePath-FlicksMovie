@@ -106,6 +106,12 @@ class TopRatedViewController: UIViewController {
 extension TopRatedViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let targetVC = storyboard?.instantiateViewController(withIdentifier: "MovieDetailBoard") as? MovieDetailViewController {
+            let movie = curMovies[indexPath.row]
+            targetVC.movie = movie
+            self.present(targetVC, animated: true, completion: nil)
+            //            self.navigationController?.pushViewControllerWithTabbarHidden(targetVC, animated: true)
+        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

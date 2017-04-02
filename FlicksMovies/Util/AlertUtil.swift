@@ -15,21 +15,24 @@ struct AlertUtil {
     
     private let warningView = WarningView(info: "", frame: CGRect(x: 0, y: NAVBAR_HEIGHT, width: SCREEN_WIDTH, height: NAVBAR_HEIGHT))
     
-    func show(message: String, viewcontroller: UIViewController, autoClose: Bool, delay time: TimeInterval) {
+    func show(message: String, viewcontroller: UIViewController?, autoClose: Bool, delay time: TimeInterval) {
 
         warningView.infoText = message
         
         warningView.isHidden = false
-        if let keywindow = UIApplication.shared.keyWindow {
-
-            keywindow.addSubview(warningView)
-            keywindow.bringSubview(toFront: warningView)
-
-//            keywindow.rootViewController?.view.addSubview(warningView)
-//            keywindow.rootViewController?.view.bringSubview(toFront: warningView)
+        
+        if viewcontroller != nil {
+            viewcontroller!.view.addSubview(warningView)
+            viewcontroller!.view.bringSubview(toFront: warningView)
         } else {
-            viewcontroller.view.addSubview(warningView)
-            viewcontroller.view.bringSubview(toFront: warningView)
+            if let keywindow = UIApplication.shared.keyWindow {
+                
+                keywindow.addSubview(warningView)
+                keywindow.bringSubview(toFront: warningView)
+                
+                //            keywindow.rootViewController?.view.addSubview(warningView)
+                //            keywindow.rootViewController?.view.bringSubview(toFront: warningView)
+            }
         }
         
         if autoClose {

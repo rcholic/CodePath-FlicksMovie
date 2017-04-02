@@ -11,6 +11,8 @@ import AFNetworking
 
 class MovieDetailViewController: UIViewController {
 
+    let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: SCREEN_HEIGHT - NAVBAR_HEIGHT, width: SCREEN_WIDTH, height: NAVBAR_HEIGHT))
+    
     var movie: Movie?
     
     @IBOutlet weak var overviewLabel: UILabel!
@@ -21,9 +23,8 @@ class MovieDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupBottomNavbar()
         setupView()
-        
-        // TODO: add nav bar
     }
     
     private func setupView() {
@@ -46,13 +47,9 @@ class MovieDetailViewController: UIViewController {
         
         if let posterImagePath = curMovie.posterPath {
             
-            let smallImagePath = "\(SMALL_POSTER_IMAGE_BASE_URL)\(posterImagePath)"
+            let smallImagePath = "\(MEDIUM_POSTER_IMAGE_BASE_URL)\(posterImagePath)"
             
-            let largeImagePath = "\(MEDIUM_POSTER_IMAGE_BASE_URL)\(posterImagePath)"
-            
-//            if let url = URL(string: smallImagePath) {
-//                posterImageView.setImageWith(url)
-//            }
+            let largeImagePath = "\(LARGE_POSTER_IMAGE_BASE_URL)\(posterImagePath)"
             
             let smallImageRequest = URLRequest(url: URL(string: smallImagePath)!)
             let largeImageRequest = URLRequest(url: URL(string: largeImagePath)!)
@@ -70,13 +67,33 @@ class MovieDetailViewController: UIViewController {
                                 
                                 self.posterImageView.image = largeImage
                             }, failure: { (bigReq, bigRes, error) in
-                                // todo
+                                AlertUtil.shared.show(message: "Error In Network Access", viewcontroller: nil, autoClose: true, delay: 5.0)
                             })
                         })
                   }, failure: { (smallReq, smallRes, error) in
-                        // todo
+                        AlertUtil.shared.show(message: "Error In Network Access", viewcontroller: nil, autoClose: true, delay: 5.0)
             })
         }
+    }
+    
+    @objc private func dismissView(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    private func setupBottomNavbar() {
+        
+        self.view.addSubview(navBar)
+        let backarrowImage = UIImage(named: "ic_arrow_back")
+        let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: backarrowImage!.size.width, height: backarrowImage!.size.height))
+        backButton.setBackgroundImage(backarrowImage, for: .normal)
+        backButton.addTarget(self, action: #selector(self.dismissView(_:)), for: .touchUpInside)
+        backButton.showsTouchWhenHighlighted = true
+        
+        let backItem = UIBarButtonItem.init(image: backarrowImage, style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.dismissView(_:)))
+
+        let navItem = UINavigationItem()
+        navItem.leftBarButtonItem = backItem
+        navBar.setItems([navItem], animated: false)
     }
 }
 
