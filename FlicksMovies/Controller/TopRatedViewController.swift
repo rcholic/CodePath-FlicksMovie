@@ -13,16 +13,21 @@ class TopRatedViewController: UIViewController {
 
     let paginatedTopMovies = Pagination()
     let cellIdentifier = "MovieCell"
+    let refreshControl = UIRefreshControl()
+    
     var curPage = 1
     var curMovies: [Movie] = [] // movies for current page
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupNavbar()
         setupTableView()
         fetchData(page: curPage)
+        refreshControl.addTarget(self, action: #selector(self.loadNextPage(_:)), for: .valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
     }
     
     private func setupNavbar() {
@@ -57,14 +62,15 @@ class TopRatedViewController: UIViewController {
                 
                 // save movies in memory cache
                 guard var error = errorMsg else {
-                    
-                    self.curMovies = movies
+                    // prepend
+                    self.curMovies.insert(contentsOf: movies, at: 0)
                     self.tableView.reloadData()
                     SVProgressHUD.dismiss()
                     
                     // cache the movies for this page
                     self.paginatedTopMovies.insertMovies(movies: movies, page: page)
-                    
+                    self.refreshControl.endRefreshing()
+//                    self.tableView.insertSubview(self.refreshControl, at: 0)
                     return
                 }
                 
@@ -73,6 +79,8 @@ class TopRatedViewController: UIViewController {
                 }
                 
                 AlertUtil.shared.show(message: error, viewcontroller: self, autoClose: true, delay: 5.0)
+                self.refreshControl.endRefreshing()
+//                self.tableView.insertSubview(self.refreshControl, at: 0)
             })
         }
     }
@@ -86,6 +94,12 @@ class TopRatedViewController: UIViewController {
         //        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120.0
         //        tableView.contentSize = CGSize(self)
+    }
+    
+    @objc private func loadNextPage(_ refresher: UIRefreshControl) {
+        curPage += 1
+//        refreshControl.removeFromSuperview() // disable it
+        fetchData(page: curPage)
     }
 }
 

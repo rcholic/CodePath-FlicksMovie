@@ -13,6 +13,7 @@ class NowPlayingViewController: UIViewController {
 
     let cellIdentifier = "MovieCell"
     let paginatedNowPlayingMovies = Pagination()
+    let refreshControl = UIRefreshControl()
     let warningView = WarningView(info: "", frame: CGRect(x: 0, y: SCREEN_HEIGHT - TABBAR_HEIGHT - 100, width: SCREEN_WIDTH, height: NAVBAR_HEIGHT))
     
     var curPage = 1
@@ -25,8 +26,8 @@ class NowPlayingViewController: UIViewController {
         setupNavbar()
         setupTableView()
         fetchData(page: curPage)
-        
-//        self.navigationController?.navigationBar.isHidden = true // hide nav bar
+        refreshControl.addTarget(self, action: #selector(self.loadNextPage(_:)), for: .valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
     }
     
     private func setupNavbar() {
@@ -64,12 +65,14 @@ class NowPlayingViewController: UIViewController {
                 
                 guard var error = errorMsg else {
                     
-                    self.curMovies = movies
+                    // prepend
+                    self.curMovies.insert(contentsOf: movies, at: 0)
                     self.tableView.reloadData()
                     SVProgressHUD.dismiss()
                     
                     // cache the movies for this page
                     self.paginatedNowPlayingMovies.insertMovies(movies: movies, page: page)
+                    self.refreshControl.endRefreshing()
                     
                     return
                 }
@@ -79,26 +82,9 @@ class NowPlayingViewController: UIViewController {
                 }
                 
                 AlertUtil.shared.show(message: error, viewcontroller: self, autoClose: true, delay: 5.0)
+                self.refreshControl.endRefreshing()
+//                self.tableView.insertSubview(self.refreshControl, at: 0)
             })
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-//        self.view.addSubview(warningView)
-        self.view.insertSubview(warningView, at: 0)
-        self.view.bringSubview(toFront: warningView)
-        OperationQueue.main.addOperation {
-            
-            self.warningView.infoText = "Done done!"
-            
-            UIView.animate(withDuration: 0.5, delay:
-                5.0, options: UIViewAnimationOptions.transitionFlipFromTop, animations: {
-                    self.warningView.isHidden = false
-            }) { (done) in
-                self.warningView.removeFromSuperview()
-            }
         }
     }
     
@@ -107,6 +93,12 @@ class NowPlayingViewController: UIViewController {
         tableView.dataSource = self
         tableView.separatorColor = nil
         tableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
+    }
+    
+    @objc private func loadNextPage(_ refresher: UIRefreshControl) {
+        curPage += 1
+//        refreshControl.removeFromSuperview() // disable it
+        fetchData(page: curPage)
     }
 }
 
