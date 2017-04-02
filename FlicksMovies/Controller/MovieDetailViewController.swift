@@ -107,12 +107,14 @@ extension MovieDetailViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         UIView.animate(withDuration: 0.8) {
             self.overviewLabel.alpha = 1.0
+            self.navBar.alpha = 1.0
         }
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         UIView.animate(withDuration: 0.5) {
             self.overviewLabel.alpha = 0.0
+            self.navBar.alpha = 0.0
         }
     }
 }

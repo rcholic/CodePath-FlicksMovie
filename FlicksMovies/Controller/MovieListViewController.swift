@@ -12,13 +12,15 @@ import SnapKit
 
 class MovieListViewController: UIViewController {
     
-    let movieAPI: MovieAPI
+    var movieAPI: MovieAPI
     
-    let navbarTitle: String
+    var navbarTitle: String
     
     let paginatedMovies = Pagination()
     
     let cellIdentifier = "MovieCell"
+    
+    let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
     
     var curMovies: [Movie] = [] // movies for current page
     
@@ -129,11 +131,10 @@ extension MovieListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if let targetVC = storyboard?.instantiateViewController(withIdentifier: "MovieDetailBoard") as? MovieDetailViewController {
+        if let targetVC = mainStoryboard.instantiateViewController(withIdentifier: "MovieDetailBoard") as? MovieDetailViewController {
             let movie = curMovies[indexPath.row]
             targetVC.movie = movie
             self.present(targetVC, animated: true, completion: nil)
-            //            self.navigationController?.pushViewControllerWithTabbarHidden(targetVC, animated: true)
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -152,6 +153,12 @@ extension MovieListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! MovieTableViewCell
         let movie = curMovies[indexPath.row]
+
+        let backgroundView = UIView()
+        backgroundView.frame = cell.bounds
+        backgroundView.backgroundColor = CELL_SEPARATOR_COLOR.withAlphaComponent(0.5)
+        cell.selectedBackgroundView = backgroundView
+        
         cell.bind(movie)
         
         return cell
