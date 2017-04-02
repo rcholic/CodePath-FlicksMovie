@@ -20,13 +20,15 @@ public let SCREEN_HEIGHT = UIScreen.main.bounds.size.height
 
 public let TABBAR_HEIGHT: CGFloat = 49.0
 
-public let NAVBAR_HEIGHT: CGFloat = 64
+public let NAVBAR_HEIGHT: CGFloat = 50
 
-public let NAVIGATIONBAR_COLOR = UIColor.green
+public let NAVIGATIONBAR_COLOR = RGBA(r: 1, g: 218.0/255.0, b: 185.0/255.0, alpha: 1.0)
 
-public let CELL_SEPARATOR_COLOR = UIColor.green
+public let NAVIGATIONBAR_TEXT_COLOR = RGBA(r: 1, g: 99/255.0, b: 71/255.0, alpha: 1.0)
 
-public let HIGHLIGHTED_FONT_COLOR = UIColor.blue // TODO: change to default tint color
+public let CELL_SEPARATOR_COLOR = RGBA(r: 50/255.0, g: 205/255.0, b: 50/255.0, alpha: 1.0)
+
+public let HIGHLIGHTED_FONT_COLOR = NAVIGATIONBAR_TEXT_COLOR
 
 public let API_KEY = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
 

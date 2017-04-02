@@ -42,9 +42,7 @@ struct APIService {
         
         var apiURL = movieAPI.retrieveURL()
         apiURL = "\(apiURL)&page=\(page)"
-//        SVProgressHUD.show
-        // TODO: show progressHUD on currently active window
-    
+        
         manager.get(apiURL, parameters: nil, progress: { (percentage) in
             print("percentage done: \(percentage)")
         }, success: { (task: URLSessionDataTask, responseObj) in

@@ -16,8 +16,11 @@
 		EB6E45FA1E8FE69200658FCC /* MovieTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB6E45F81E8FE69200658FCC /* MovieTableViewCell.xib */; };
 		EB6E45FE1E8FE85500658FCC /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E45FD1E8FE85500658FCC /* MovieTableViewCell.swift */; };
 		EB6E46001E8FEAC200658FCC /* BaseJsonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E45FF1E8FEAC200658FCC /* BaseJsonModel.swift */; };
-		EB6E46021E8FF6F300658FCC /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E46011E8FF6F300658FCC /* APIService.swift */; };
 		EB6E46051E902DB100658FCC /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB6E46041E902DB100658FCC /* SwiftyJSON.framework */; };
+		EB6E46121E9058C300658FCC /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E46111E9058C300658FCC /* Pagination.swift */; };
+		EB6E46141E905AF800658FCC /* WarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E46131E905AF800658FCC /* WarningView.swift */; };
+		EB6E46161E905D3300658FCC /* AlertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E46151E905D3300658FCC /* AlertUtil.swift */; };
+		EB6E46191E905D5500658FCC /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E46181E905D5500658FCC /* APIService.swift */; };
 		EB7380C91E8F590F003C40A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7380C81E8F590F003C40A8 /* AppDelegate.swift */; };
 		EB7380CE1E8F590F003C40A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB7380CC1E8F590F003C40A8 /* Main.storyboard */; };
 		EB7380D01E8F590F003C40A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB7380CF1E8F590F003C40A8 /* Assets.xcassets */; };
@@ -63,9 +66,12 @@
 		EB6E45F81E8FE69200658FCC /* MovieTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieTableViewCell.xib; sourceTree = "<group>"; };
 		EB6E45FD1E8FE85500658FCC /* MovieTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		EB6E45FF1E8FEAC200658FCC /* BaseJsonModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseJsonModel.swift; sourceTree = "<group>"; };
-		EB6E46011E8FF6F300658FCC /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		EB6E46031E8FFC7B00658FCC /* FlicksMovies-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FlicksMovies-Bridging-Header.h"; sourceTree = "<group>"; };
 		EB6E46041E902DB100658FCC /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = "../../../../../../../Library/Developer/Xcode/DerivedData/FlicksMovies-gfeoisxactkidiexkcdkfmiqdrdn/Build/Products/Debug-iphonesimulator/SwiftyJSON/SwiftyJSON.framework"; sourceTree = "<group>"; };
+		EB6E46111E9058C300658FCC /* Pagination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pagination.swift; sourceTree = "<group>"; };
+		EB6E46131E905AF800658FCC /* WarningView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarningView.swift; sourceTree = "<group>"; };
+		EB6E46151E905D3300658FCC /* AlertUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertUtil.swift; sourceTree = "<group>"; };
+		EB6E46181E905D5500658FCC /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		EB7380C51E8F590F003C40A8 /* FlicksMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlicksMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB7380C81E8F590F003C40A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB7380CD1E8F590F003C40A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -139,8 +145,17 @@
 			children = (
 				EB6E45F81E8FE69200658FCC /* MovieTableViewCell.xib */,
 				EB6E45FD1E8FE85500658FCC /* MovieTableViewCell.swift */,
+				EB6E46131E905AF800658FCC /* WarningView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		EB6E46171E905D5500658FCC /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				EB6E46181E905D5500658FCC /* APIService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		EB7380BC1E8F590F003C40A8 = {
@@ -169,6 +184,7 @@
 		EB7380C71E8F590F003C40A8 /* FlicksMovies */ = {
 			isa = PBXGroup;
 			children = (
+				EB6E46171E905D5500658FCC /* Service */,
 				EB6E45F61E8FE69200658FCC /* View */,
 				EB73810F1E8F6443003C40A8 /* Util */,
 				EB73810C1E8F643E003C40A8 /* Model */,
@@ -179,7 +195,6 @@
 				EB7380CF1E8F590F003C40A8 /* Assets.xcassets */,
 				EB7380D11E8F590F003C40A8 /* LaunchScreen.storyboard */,
 				EB7380D41E8F590F003C40A8 /* Info.plist */,
-				EB6E46011E8FF6F300658FCC /* APIService.swift */,
 			);
 			path = FlicksMovies;
 			sourceTree = "<group>";
@@ -225,6 +240,7 @@
 			children = (
 				EB73810D1E8F643E003C40A8 /* Movie.swift */,
 				EB6E45FF1E8FEAC200658FCC /* BaseJsonModel.swift */,
+				EB6E46111E9058C300658FCC /* Pagination.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -233,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				EB7381101E8F6443003C40A8 /* CommonSettings.swift */,
+				EB6E46151E905D3300658FCC /* AlertUtil.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -540,8 +557,11 @@
 				EB7381081E8F6432003C40A8 /* TopRatedViewController.swift in Sources */,
 				EB73810E1E8F643E003C40A8 /* Movie.swift in Sources */,
 				EB7381071E8F6432003C40A8 /* NowPlayingViewController.swift in Sources */,
+				EB6E46141E905AF800658FCC /* WarningView.swift in Sources */,
+				EB6E46161E905D3300658FCC /* AlertUtil.swift in Sources */,
 				EB7380C91E8F590F003C40A8 /* AppDelegate.swift in Sources */,
-				EB6E46021E8FF6F300658FCC /* APIService.swift in Sources */,
+				EB6E46121E9058C300658FCC /* Pagination.swift in Sources */,
+				EB6E46191E905D5500658FCC /* APIService.swift in Sources */,
 				EB6E45FE1E8FE85500658FCC /* MovieTableViewCell.swift in Sources */,
 				EB73810B1E8F6438003C40A8 /* UINavController+Ext.swift in Sources */,
 				EB6E46001E8FEAC200658FCC /* BaseJsonModel.swift in Sources */,

@@ -27,6 +27,11 @@ class MovieTableViewCell: UITableViewCell {
     override func layoutSubviews() {
 //        self.descLabel.sizeToFit()
         self.titleLabel.sizeToFit()
+        self.posterImageView.layer.shadowColor = UIColor.black.cgColor
+        self.posterImageView.layer.shadowOffset = CGSize(width: 0.5, height: 1.5)
+        self.posterImageView.layer.shadowRadius = 3.0
+        self.posterImageView.layer.shadowOpacity = 1
+        self.posterImageView.clipsToBounds = false
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -38,8 +43,6 @@ class MovieTableViewCell: UITableViewCell {
         if let posterImagePath = movie.posterPath {
             
             let smallImagePath = "\(SMALL_POSTER_IMAGE_BASE_URL)\(posterImagePath)"
-//            print("smallImagePath: \(smallImagePath)")
-
             
             if let url = URL(string: smallImagePath) {
                 let imageRequest = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.returnCacheDataElseLoad, timeoutInterval: 300) // keep 5 minutes
