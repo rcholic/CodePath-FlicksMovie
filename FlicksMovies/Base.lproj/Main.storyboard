@@ -77,6 +77,74 @@
             </objects>
             <point key="canvasLocation" x="2468" y="35.532233883058474"/>
         </scene>
+        <!--Movie Detail View Controller-->
+        <scene sceneID="WaF-Ua-U8p">
+            <objects>
+                <viewController storyboardIdentifier="MovieDetailBoard" id="fMq-Zt-ywS" customClass="MovieDetailViewController" customModule="FlicksMovies" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2lA-oR-n7g"/>
+                        <viewControllerLayoutGuide type="bottom" id="zxO-AS-Pnz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="f1O-DX-qo2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N37-Hq-Kwy">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BOZ-bf-3FG">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iwa-1d-PKb">
+                                        <rect key="frame" x="38" y="456" width="285" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="300" id="XKe-Gu-2P7"/>
+                                        </constraints>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Label">
+                                                <attributes>
+                                                    <color key="NSBackgroundColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="NSColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" metaFont="system" size="17"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="BOZ-bf-3FG" firstAttribute="leading" secondItem="N37-Hq-Kwy" secondAttribute="leading" id="Dyj-I9-l8Q"/>
+                                    <constraint firstItem="BOZ-bf-3FG" firstAttribute="leading" secondItem="N37-Hq-Kwy" secondAttribute="leading" id="EqW-w6-yYf"/>
+                                    <constraint firstAttribute="bottom" secondItem="iwa-1d-PKb" secondAttribute="bottom" constant="30" id="JLv-LG-fN5"/>
+                                    <constraint firstAttribute="bottom" secondItem="BOZ-bf-3FG" secondAttribute="bottom" id="Jql-zF-2dd"/>
+                                    <constraint firstItem="BOZ-bf-3FG" firstAttribute="top" secondItem="N37-Hq-Kwy" secondAttribute="top" id="QRs-0f-wVg"/>
+                                    <constraint firstItem="BOZ-bf-3FG" firstAttribute="top" secondItem="N37-Hq-Kwy" secondAttribute="top" id="bPH-3l-Vm6"/>
+                                    <constraint firstAttribute="trailing" secondItem="BOZ-bf-3FG" secondAttribute="trailing" id="gQj-hJ-xPl"/>
+                                    <constraint firstAttribute="trailing" secondItem="BOZ-bf-3FG" secondAttribute="trailing" id="rgR-OJ-3MT"/>
+                                    <constraint firstItem="iwa-1d-PKb" firstAttribute="centerX" secondItem="N37-Hq-Kwy" secondAttribute="centerX" id="smm-pr-yMq"/>
+                                    <constraint firstAttribute="bottom" secondItem="BOZ-bf-3FG" secondAttribute="bottom" id="wx8-bY-ec1"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="N37-Hq-Kwy" secondAttribute="trailing" id="9uV-nM-eYL"/>
+                            <constraint firstItem="zxO-AS-Pnz" firstAttribute="top" secondItem="N37-Hq-Kwy" secondAttribute="bottom" id="Av1-fa-GD7"/>
+                            <constraint firstItem="N37-Hq-Kwy" firstAttribute="leading" secondItem="f1O-DX-qo2" secondAttribute="leading" id="USf-cv-M5k"/>
+                            <constraint firstItem="N37-Hq-Kwy" firstAttribute="top" secondItem="f1O-DX-qo2" secondAttribute="top" id="dab-Hq-7lm"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="overviewLabel" destination="iwa-1d-PKb" id="sMm-W9-aFI"/>
+                        <outlet property="posterImageView" destination="BOZ-bf-3FG" id="cfS-0J-URf"/>
+                        <outlet property="scrollView" destination="N37-Hq-Kwy" id="J7c-6L-0lf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5PB-gq-HOz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3660" y="-40.029985007496258"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="63I-oy-nf4">
             <objects>

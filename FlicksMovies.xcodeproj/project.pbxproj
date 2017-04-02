@@ -10,6 +10,7 @@
 		9CDCD8ACFF66880EBAE42BE0 /* Pods_FlicksMoviesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41172EB0D3C49F3D190B0354 /* Pods_FlicksMoviesTests.framework */; };
 		ACEC1CC1D37D9D77A3F406FE /* Pods_FlicksMovies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0547EA79CDFCCE0E8610A60 /* Pods_FlicksMovies.framework */; };
 		D0337C8DEAADF7A01228936C /* Pods_FlicksMoviesUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEC66CC42696EFD707EB3024 /* Pods_FlicksMoviesUITests.framework */; };
+		EB6071D41E907F2E003A7BA9 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6071D31E907F2E003A7BA9 /* MovieDetailViewController.swift */; };
 		EB6E45ED1E8FE63600658FCC /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB6E45EC1E8FE63600658FCC /* AFNetworking.framework */; };
 		EB6E45EF1E8FE63B00658FCC /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB6E45EE1E8FE63B00658FCC /* ObjectMapper.framework */; };
 		EB6E45F11E8FE63F00658FCC /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB6E45F01E8FE63F00658FCC /* SVProgressHUD.framework */; };
@@ -60,6 +61,7 @@
 		8D80322555A8CF6F1519F4F1 /* Pods-FlicksMoviesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlicksMoviesTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FlicksMoviesTests/Pods-FlicksMoviesTests.release.xcconfig"; sourceTree = "<group>"; };
 		C0547EA79CDFCCE0E8610A60 /* Pods_FlicksMovies.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlicksMovies.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C84768B948AB02BF5E9E6061 /* Pods-FlicksMoviesTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlicksMoviesTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FlicksMoviesTests/Pods-FlicksMoviesTests.debug.xcconfig"; sourceTree = "<group>"; };
+		EB6071D31E907F2E003A7BA9 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 		EB6E45EC1E8FE63600658FCC /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = "Pods/../build/Debug-iphoneos/AFNetworking/AFNetworking.framework"; sourceTree = "<group>"; };
 		EB6E45EE1E8FE63B00658FCC /* ObjectMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectMapper.framework; path = "../../../../../../../Library/Developer/Xcode/DerivedData/FlicksMovies-gfeoisxactkidiexkcdkfmiqdrdn/Build/Products/Debug-iphonesimulator/ObjectMapper/ObjectMapper.framework"; sourceTree = "<group>"; };
 		EB6E45F01E8FE63F00658FCC /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = "Pods/../build/Debug-iphoneos/SVProgressHUD/SVProgressHUD.framework"; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				EB7381031E8F6432003C40A8 /* CustomTabBarViewController.swift */,
 				EB7381041E8F6432003C40A8 /* NowPlayingViewController.swift */,
 				EB7381051E8F6432003C40A8 /* TopRatedViewController.swift */,
+				EB6071D31E907F2E003A7BA9 /* MovieDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -556,6 +559,7 @@
 				EB7381061E8F6432003C40A8 /* CustomTabBarViewController.swift in Sources */,
 				EB7381081E8F6432003C40A8 /* TopRatedViewController.swift in Sources */,
 				EB73810E1E8F643E003C40A8 /* Movie.swift in Sources */,
+				EB6071D41E907F2E003A7BA9 /* MovieDetailViewController.swift in Sources */,
 				EB7381071E8F6432003C40A8 /* NowPlayingViewController.swift in Sources */,
 				EB6E46141E905AF800658FCC /* WarningView.swift in Sources */,
 				EB6E46161E905D3300658FCC /* AlertUtil.swift in Sources */,

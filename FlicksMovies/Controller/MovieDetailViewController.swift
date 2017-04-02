@@ -1,0 +1,101 @@
+//
+//  MovieDetailViewController.swift
+//  FlicksMovies
+//
+//  Created by Guoliang Wang on 4/1/17.
+//  Copyright © 2017 Guoliang Wang. All rights reserved.
+//
+
+import UIKit
+import AFNetworking
+
+class MovieDetailViewController: UIViewController {
+
+    var movie: Movie?
+    
+    @IBOutlet weak var overviewLabel: UILabel!
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    @IBOutlet weak var posterImageView: UIImageView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+        
+        // TODO: add nav bar
+    }
+    
+    private func setupView() {
+        
+        let contentWidth = scrollView.bounds.width
+        let contentHeight = scrollView.bounds.height
+        scrollView.contentSize = CGSize(width: contentWidth, height: contentHeight)
+        // CGSize(width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
+        scrollView.delegate = self
+        scrollView.maximumZoomScale = 2.0
+        scrollView.minimumZoomScale = 0.8
+        overviewLabel.sizeToFit()
+        overviewLabel.backgroundColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
+        
+        guard let curMovie = movie else { return }
+        
+        if let overview = curMovie.overview {
+            overviewLabel.text = overview
+        }
+        
+        if let posterImagePath = curMovie.posterPath {
+            
+            let smallImagePath = "\(SMALL_POSTER_IMAGE_BASE_URL)\(posterImagePath)"
+            
+            let largeImagePath = "\(MEDIUM_POSTER_IMAGE_BASE_URL)\(posterImagePath)"
+            
+//            if let url = URL(string: smallImagePath) {
+//                posterImageView.setImageWith(url)
+//            }
+            
+            let smallImageRequest = URLRequest(url: URL(string: smallImagePath)!)
+            let largeImageRequest = URLRequest(url: URL(string: largeImagePath)!)
+            
+            self.posterImageView.setImageWith(smallImageRequest,
+                    placeholderImage: nil,
+                    success: { (smallRequest, smallRespose, smallImage) in
+                        self.posterImageView.alpha = 0.0
+                        self.posterImageView.image = smallImage
+                        
+                        UIView.animate(withDuration: 0.3, animations: { 
+                            self.posterImageView.alpha = 1.0
+                        }, completion: { (done) in
+                            self.posterImageView.setImageWith(largeImageRequest, placeholderImage: nil, success: { (largeRequest, largeResponse, largeImage) in
+                                
+                                self.posterImageView.image = largeImage
+                            }, failure: { (bigReq, bigRes, error) in
+                                // todo
+                            })
+                        })
+                  }, failure: { (smallReq, smallRes, error) in
+                        // todo
+            })
+        }
+    }
+}
+
+extension MovieDetailViewController: UIScrollViewDelegate {
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.posterImageView
+    }
+    
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        UIView.animate(withDuration: 0.8) {
+            self.overviewLabel.alpha = 1.0
+        }
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        UIView.animate(withDuration: 0.5) {
+            self.overviewLabel.alpha = 0.0
+        }
+    }
+}

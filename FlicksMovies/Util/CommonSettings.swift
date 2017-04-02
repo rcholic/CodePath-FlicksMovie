@@ -10,8 +10,8 @@ import UIKit
 
 public enum ImageSize: String {
     case small = "w185"
-    case medium = "w300"
-    case large = "w780"
+    case medium = "w780"
+    case large = "w1280"
 }
 
 public let SCREEN_WIDTH = UIScreen.main.bounds.size.width
@@ -35,6 +35,8 @@ public let API_KEY = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
 public let SERVER_URL = "https://api.themoviedb.org/3/movie"
 
 public let SMALL_POSTER_IMAGE_BASE_URL = "http://image.tmdb.org/t/p/\(ImageSize.small.rawValue)"
+
+public let MEDIUM_POSTER_IMAGE_BASE_URL = "http://image.tmdb.org/t/p/\(ImageSize.medium.rawValue)"
 
 public let LARGE_POSTER_IMAGE_BASE_URL = "http://image.tmdb.org/t/p/\(ImageSize.large.rawValue)"
 
