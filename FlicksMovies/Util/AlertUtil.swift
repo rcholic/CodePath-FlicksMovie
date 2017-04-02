@@ -21,7 +21,7 @@ struct AlertUtil {
         
         warningView.isHidden = false
         
-        if viewcontroller != nil {
+        if viewcontroller != nil && !viewcontroller!.view.subviews.contains(warningView) {
             viewcontroller!.view.addSubview(warningView)
             viewcontroller!.view.bringSubview(toFront: warningView)
         } else {

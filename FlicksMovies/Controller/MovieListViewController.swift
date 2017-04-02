@@ -1,24 +1,42 @@
 //
-//  TopRatedViewController.swift
+//  MovieListViewController.swift
 //  FlicksMovies
 //
-//  Created by Guoliang Wang on 3/31/17.
+//  Created by Guoliang Wang on 4/2/17.
 //  Copyright © 2017 Guoliang Wang. All rights reserved.
 //
 
 import UIKit
 import SVProgressHUD
+import SnapKit
 
-class TopRatedViewController: UIViewController {
-
-    let paginatedTopMovies = Pagination()
-    let cellIdentifier = "MovieCell"
-    let refreshControl = UIRefreshControl()
+class MovieListViewController: UIViewController {
     
-    var curPage = 1
+    let movieAPI: MovieAPI
+    
+    let navbarTitle: String
+    
+    let paginatedMovies = Pagination()
+    
+    let cellIdentifier = "MovieCell"
+    
     var curMovies: [Movie] = [] // movies for current page
     
-    @IBOutlet weak var tableView: UITableView!
+    let refreshControl = UIRefreshControl()
+    
+    let tableView = UITableView()
+    
+    var curPage = 1
+    
+    init(navbarTitle: String, movieAPI: MovieAPI) {
+        self.navbarTitle = navbarTitle
+        self.movieAPI = movieAPI
+        super.init(nibName: String(describing: type(of: self)), bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,8 +49,13 @@ class TopRatedViewController: UIViewController {
     }
     
     private func setupNavbar() {
-        let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: NAVBAR_HEIGHT))
+        
+        let navBar: UINavigationBar = UINavigationBar()
         self.view.addSubview(navBar)
+        navBar.snp.makeConstraints { (make) in
+            make.left.right.top.equalToSuperview()
+            make.height.equalTo(NAVBAR_HEIGHT)
+        }
         
         navBar.barTintColor = NAVIGATIONBAR_COLOR
         let textColor = NAVIGATIONBAR_TEXT_COLOR
@@ -46,18 +69,36 @@ class TopRatedViewController: UIViewController {
         navBar.titleTextAttributes = NSDictionary(objects: [textColor, textShadow, fontAttr!], forKeys: [NSForegroundColorAttributeName as NSCopying, NSShadowAttributeName as NSCopying, NSFontAttributeName as NSCopying]) as? [String : AnyObject]
         
         
-        let navItem = UINavigationItem(title: "Top Rated")
+        let navItem = UINavigationItem(title: self.navbarTitle)
         // TODO: add buttons for switching between tableview and collection
         //        let doneItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: nil, action: "selector")
         //        navItem.rightBarButtonItem = doneItem;
         navBar.setItems([navItem], animated: false)
     }
     
+    private func setupTableView() {
+        self.view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorColor = nil
+        tableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
+        
+        tableView.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalToSuperview()
+            make.top.equalToSuperview().offset(NAVBAR_HEIGHT)
+        }
+    }
+    
+    @objc private func loadNextPage(_ refresher: UIRefreshControl) {
+        curPage += 1
+        fetchData(page: curPage)
+    }
+    
     private func fetchData(page: Int) {
         
         SVProgressHUD.showInfo(withStatus: "Fetching Movies...")
-        APIService.shared.getMoviesFor(movieAPI: MovieAPI.topRated, page: page) { (movies: [Movie], errorMsg: String?, statusCode: Int?) in
-
+        APIService.shared.getMoviesFor(movieAPI: self.movieAPI, page: page) { (movies: [Movie], errorMsg: String?, statusCode: Int?) in
+            
             OperationQueue.main.addOperation({
                 
                 // save movies in memory cache
@@ -68,9 +109,8 @@ class TopRatedViewController: UIViewController {
                     SVProgressHUD.dismiss()
                     
                     // cache the movies for this page
-                    self.paginatedTopMovies.insertMovies(movies: movies, page: page)
+                    self.paginatedMovies.insertMovies(movies: movies, page: page)
                     self.refreshControl.endRefreshing()
-//                    self.tableView.insertSubview(self.refreshControl, at: 0)
                     return
                 }
                 
@@ -78,34 +118,17 @@ class TopRatedViewController: UIViewController {
                     error = "\(error), error code: \(statusCode!)"
                 }
                 
-                AlertUtil.shared.show(message: error, viewcontroller: self, autoClose: true, delay: 5.0)
+                AlertUtil.shared.show(message: "Network Error! Try Refresh", viewcontroller: self, autoClose: true, delay: 5.0)
                 self.refreshControl.endRefreshing()
-//                self.tableView.insertSubview(self.refreshControl, at: 0)
             })
         }
     }
-    
-    private func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorColor = nil
-        tableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
-        
-        //        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 120.0
-        //        tableView.contentSize = CGSize(self)
-    }
-    
-    @objc private func loadNextPage(_ refresher: UIRefreshControl) {
-        curPage += 1
-//        refreshControl.removeFromSuperview() // disable it
-        fetchData(page: curPage)
-    }
 }
 
-extension TopRatedViewController: UITableViewDelegate {
+extension MovieListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         if let targetVC = storyboard?.instantiateViewController(withIdentifier: "MovieDetailBoard") as? MovieDetailViewController {
             let movie = curMovies[indexPath.row]
             targetVC.movie = movie
@@ -116,7 +139,7 @@ extension TopRatedViewController: UITableViewDelegate {
     }
 }
 
-extension TopRatedViewController: UITableViewDataSource {
+extension MovieListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return curMovies.count
@@ -138,6 +161,3 @@ extension TopRatedViewController: UITableViewDataSource {
         return 150.0
     }
 }
-
-
-

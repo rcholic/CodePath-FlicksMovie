@@ -10,6 +10,7 @@ target 'FlicksMovies' do
   pod 'ObjectMapper', '~> 2.2'
   pod 'SwiftyJSON'
   pod 'SVProgressHUD'
+  pod 'SnapKit', '~> 3.2.0'
 
   target 'FlicksMoviesTests' do
     inherit! :search_paths

@@ -67,11 +67,11 @@ class MovieDetailViewController: UIViewController {
                                 
                                 self.posterImageView.image = largeImage
                             }, failure: { (bigReq, bigRes, error) in
-                                AlertUtil.shared.show(message: "Error In Network Access", viewcontroller: nil, autoClose: true, delay: 5.0)
+//                                AlertUtil.shared.show(message: "Error In Network Access", viewcontroller: nil, autoClose: true, delay: 5.0)
                             })
                         })
                   }, failure: { (smallReq, smallRes, error) in
-                        AlertUtil.shared.show(message: "Error In Network Access", viewcontroller: nil, autoClose: true, delay: 5.0)
+//                        AlertUtil.shared.show(message: "Error In Network Access", viewcontroller: nil, autoClose: true, delay: 5.0)
             })
         }
     }

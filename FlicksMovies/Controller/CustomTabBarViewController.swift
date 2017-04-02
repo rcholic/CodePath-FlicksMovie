@@ -19,13 +19,16 @@ class CustomTabBarViewController: UITabBarController {
     }
     
     private func addAllChildViewControllers() {
-        let mainStoryBoard = UIStoryboard.init(name: "Main", bundle: nil)
-        let nowPlayingVC = mainStoryBoard.instantiateViewController(withIdentifier: "NowPlaying") as! NowPlayingViewController
         
-        addChildViewController(nowPlayingVC, title: "Now Playing", imageName: "now_playing_normal", selectedImageName: "now_playing_highlighted")
+        let nowPlayingVC2 = MovieListViewController(navbarTitle: "Now Playing", movieAPI: MovieAPI.nowPlaying)
         
-        let topRatedVC = mainStoryBoard.instantiateViewController(withIdentifier: "TopRated") as! TopRatedViewController
-        addChildViewController(topRatedVC, title: "Top Rated", imageName: "top_rated_normal", selectedImageName: "top_rated_highlighted")
+        addChildViewController(nowPlayingVC2, title: nowPlayingVC2.navbarTitle, imageName: "now_playing_normal", selectedImageName: "now_playing_highlighted")
+        
+        let topRatedVC2 = MovieListViewController(navbarTitle: "Top Rated", movieAPI: MovieAPI.topRated)
+        
+        addChildViewController(topRatedVC2, title: topRatedVC2.navbarTitle, imageName: "top_rated_normal", selectedImageName: "top_rated_highlighted")
+        
+        
     }
     
     private func addChildViewController(_ childController: UIViewController, title: String, imageName: String, selectedImageName: String) {

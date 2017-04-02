@@ -22,6 +22,9 @@
 		EB6E46141E905AF800658FCC /* WarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E46131E905AF800658FCC /* WarningView.swift */; };
 		EB6E46161E905D3300658FCC /* AlertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E46151E905D3300658FCC /* AlertUtil.swift */; };
 		EB6E46191E905D5500658FCC /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6E46181E905D5500658FCC /* APIService.swift */; };
+		EB6FB3AB1E91B16100EFCB0F /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB6FB3AA1E91B16100EFCB0F /* SnapKit.framework */; };
+		EB6FB3AE1E91B3B200EFCB0F /* MovieListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6FB3AC1E91B3B200EFCB0F /* MovieListViewController.swift */; };
+		EB6FB3AF1E91B3B200EFCB0F /* MovieListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB6FB3AD1E91B3B200EFCB0F /* MovieListViewController.xib */; };
 		EB7380C91E8F590F003C40A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7380C81E8F590F003C40A8 /* AppDelegate.swift */; };
 		EB7380CE1E8F590F003C40A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB7380CC1E8F590F003C40A8 /* Main.storyboard */; };
 		EB7380D01E8F590F003C40A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB7380CF1E8F590F003C40A8 /* Assets.xcassets */; };
@@ -29,8 +32,6 @@
 		EB7380DE1E8F5910003C40A8 /* FlicksMoviesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7380DD1E8F590F003C40A8 /* FlicksMoviesTests.swift */; };
 		EB7380E91E8F5910003C40A8 /* FlicksMoviesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7380E81E8F5910003C40A8 /* FlicksMoviesUITests.swift */; };
 		EB7381061E8F6432003C40A8 /* CustomTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7381031E8F6432003C40A8 /* CustomTabBarViewController.swift */; };
-		EB7381071E8F6432003C40A8 /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7381041E8F6432003C40A8 /* NowPlayingViewController.swift */; };
-		EB7381081E8F6432003C40A8 /* TopRatedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7381051E8F6432003C40A8 /* TopRatedViewController.swift */; };
 		EB73810B1E8F6438003C40A8 /* UINavController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73810A1E8F6438003C40A8 /* UINavController+Ext.swift */; };
 		EB73810E1E8F643E003C40A8 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB73810D1E8F643E003C40A8 /* Movie.swift */; };
 		EB7381111E8F6443003C40A8 /* CommonSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7381101E8F6443003C40A8 /* CommonSettings.swift */; };
@@ -74,6 +75,9 @@
 		EB6E46131E905AF800658FCC /* WarningView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarningView.swift; sourceTree = "<group>"; };
 		EB6E46151E905D3300658FCC /* AlertUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertUtil.swift; sourceTree = "<group>"; };
 		EB6E46181E905D5500658FCC /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		EB6FB3AA1E91B16100EFCB0F /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = "../../../../../../../Library/Developer/Xcode/DerivedData/FlicksMovies-gfeoisxactkidiexkcdkfmiqdrdn/Build/Products/Debug-iphonesimulator/SnapKit/SnapKit.framework"; sourceTree = "<group>"; };
+		EB6FB3AC1E91B3B200EFCB0F /* MovieListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieListViewController.swift; sourceTree = "<group>"; };
+		EB6FB3AD1E91B3B200EFCB0F /* MovieListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieListViewController.xib; sourceTree = "<group>"; };
 		EB7380C51E8F590F003C40A8 /* FlicksMovies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlicksMovies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB7380C81E8F590F003C40A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB7380CD1E8F590F003C40A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -87,8 +91,6 @@
 		EB7380E81E8F5910003C40A8 /* FlicksMoviesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlicksMoviesUITests.swift; sourceTree = "<group>"; };
 		EB7380EA1E8F5910003C40A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB7381031E8F6432003C40A8 /* CustomTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabBarViewController.swift; sourceTree = "<group>"; };
-		EB7381041E8F6432003C40A8 /* NowPlayingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
-		EB7381051E8F6432003C40A8 /* TopRatedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopRatedViewController.swift; sourceTree = "<group>"; };
 		EB73810A1E8F6438003C40A8 /* UINavController+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavController+Ext.swift"; sourceTree = "<group>"; };
 		EB73810D1E8F643E003C40A8 /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		EB7381101E8F6443003C40A8 /* CommonSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonSettings.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB6FB3AB1E91B16100EFCB0F /* SnapKit.framework in Frameworks */,
 				EB6E46051E902DB100658FCC /* SwiftyJSON.framework in Frameworks */,
 				EB6E45F11E8FE63F00658FCC /* SVProgressHUD.framework in Frameworks */,
 				EB6E45EF1E8FE63B00658FCC /* ObjectMapper.framework in Frameworks */,
@@ -131,6 +134,7 @@
 		A4BF97CC0416FEB341A0654D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EB6FB3AA1E91B16100EFCB0F /* SnapKit.framework */,
 				EB6E46041E902DB100658FCC /* SwiftyJSON.framework */,
 				EB6E45F01E8FE63F00658FCC /* SVProgressHUD.framework */,
 				EB6E45EE1E8FE63B00658FCC /* ObjectMapper.framework */,
@@ -223,9 +227,9 @@
 			isa = PBXGroup;
 			children = (
 				EB7381031E8F6432003C40A8 /* CustomTabBarViewController.swift */,
-				EB7381041E8F6432003C40A8 /* NowPlayingViewController.swift */,
-				EB7381051E8F6432003C40A8 /* TopRatedViewController.swift */,
 				EB6071D31E907F2E003A7BA9 /* MovieDetailViewController.swift */,
+				EB6FB3AC1E91B3B200EFCB0F /* MovieListViewController.swift */,
+				EB6FB3AD1E91B3B200EFCB0F /* MovieListViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -393,6 +397,7 @@
 				EB7380D01E8F590F003C40A8 /* Assets.xcassets in Resources */,
 				EB6E45FA1E8FE69200658FCC /* MovieTableViewCell.xib in Resources */,
 				EB7380CE1E8F590F003C40A8 /* Main.storyboard in Resources */,
+				EB6FB3AF1E91B3B200EFCB0F /* MovieListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -557,10 +562,9 @@
 			files = (
 				EB7381111E8F6443003C40A8 /* CommonSettings.swift in Sources */,
 				EB7381061E8F6432003C40A8 /* CustomTabBarViewController.swift in Sources */,
-				EB7381081E8F6432003C40A8 /* TopRatedViewController.swift in Sources */,
 				EB73810E1E8F643E003C40A8 /* Movie.swift in Sources */,
 				EB6071D41E907F2E003A7BA9 /* MovieDetailViewController.swift in Sources */,
-				EB7381071E8F6432003C40A8 /* NowPlayingViewController.swift in Sources */,
+				EB6FB3AE1E91B3B200EFCB0F /* MovieListViewController.swift in Sources */,
 				EB6E46141E905AF800658FCC /* WarningView.swift in Sources */,
 				EB6E46161E905D3300658FCC /* AlertUtil.swift in Sources */,
 				EB7380C91E8F590F003C40A8 /* AppDelegate.swift in Sources */,
