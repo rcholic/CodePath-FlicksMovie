@@ -2,7 +2,7 @@
 
 **Flicks Movie** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: 6 hours spent in total
+Time spent: 8 hours spent in total
 
 ## User Stories
 
@@ -18,19 +18,25 @@ The following **optional** features are implemented:
 
 - [x] Add a tab bar for **Now Playing** and **Top Rated** movies.
 - [ ] Implement segmented control to switch between list view and grid view.
-- [ ] Add a search bar.
+- [x] Add a search bar.
 - [x] All images fade in.
 - [x] For the large poster, load the low-res image first, switch to high-res when complete.
-- [ ] Customize the highlight and selection effect of the cell.
+- [x] Customize the highlight and selection effect of the cell.
 - [x] Customize the navigation bar.
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [x] Activity Indicator used when user searches in the search bar
+- [x] Animate showing/hiding the bottom navigation bar and UILabel depending on the scroll view's state (e.g. begin dragging) in the MovieDetailViewController
 
 ## Video Walkthrough
-**TODO**
+
 Here's a walkthrough of implemented user stories:
+![](https://media.giphy.com/media/3oKIP7hu9IbtR3crni/giphy.gif)
+![](https://media.giphy.com/media/l0IynChAHsS2M8gIo/giphy.gif)
+
+![](./screencast/screen1.gif)
+![](./screencast/screen2.gif)
 
 <img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 

@@ -142,7 +142,7 @@ class MovieListViewController: UIViewController {
         
         SVProgressHUD.showInfo(withStatus: "Fetching Movies...")
         APIService.shared.getMoviesFor(movieAPI: self.movieAPI, page: page) { (movies: [Movie], errorMsg: String?, statusCode: Int?) in
-            
+            print("fetching ....")
             OperationQueue.main.addOperation({
                 
                 // save movies in memory cache
@@ -161,8 +161,6 @@ class MovieListViewController: UIViewController {
                 if statusCode != nil {
                     error = "\(error), error code: \(statusCode!)"
                 }
-                
-                AlertUtil.shared.show(message: "Network Error! Try Refresh", viewcontroller: self, autoClose: true, delay: 5.0)
                 self.refreshControl.endRefreshing()
             })
         }

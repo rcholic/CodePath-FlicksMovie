@@ -46,8 +46,6 @@ struct APIService {
         manager.get(apiURL, parameters: nil, progress: { (percentage) in
             print("percentage done: \(percentage)")
         }, success: { (task: URLSessionDataTask, responseObj) in
-            
-            // TODO: get status code and throw error if any
 
             if let response = responseObj as? [String : Any] {
                 let json = JSON(response)
@@ -72,6 +70,8 @@ struct APIService {
                 statusCode = response.statusCode
             }
             
+            print("error in service ...")
+            AlertUtil.shared.show(message: "Network Error! Try Again", viewcontroller: nil, autoClose: true, delay: 5.0)
             completionHandler(movies, error.localizedDescription, statusCode)
         }
     }

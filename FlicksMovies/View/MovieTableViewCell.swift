@@ -62,7 +62,8 @@ class MovieTableViewCell: UITableViewCell {
                     })
                     
                 }, failure: { (imageRequest, imageResponse, error) in
-//                    AlertUtil.shared.show(message: "Error In Network Access", viewcontroller: nil, autoClose: true, delay: 5.0)
+                    
+                    // TODO: handle failure
                 })
                 
             }
