@@ -33,14 +33,11 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 ![](https://media.giphy.com/media/3oKIP7hu9IbtR3crni/giphy.gif)
+
 ![](https://media.giphy.com/media/l0IynChAHsS2M8gIo/giphy.gif)
 
-![](./screencast/screen1.gif)
-![](./screencast/screen2.gif)
-
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
+<!-- ![](./screencast/screen1.gif)
+![](./screencast/screen2.gif) -->
 
 ## Notes
 
