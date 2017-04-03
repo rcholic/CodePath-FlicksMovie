@@ -44,7 +44,7 @@ struct APIService {
         apiURL = "\(apiURL)&page=\(page)"
         
         manager.get(apiURL, parameters: nil, progress: { (percentage) in
-            print("percentage done: \(percentage)")
+            print("percentage: \(percentage)")
         }, success: { (task: URLSessionDataTask, responseObj) in
 
             if let response = responseObj as? [String : Any] {
@@ -52,9 +52,10 @@ struct APIService {
                 let results = json["results"].arrayObject
                 if let data = Mapper<Movie>().mapArray(JSONObject: results) {
                     movies = data
-                    completionHandler(movies, nil, nil)
                 }
             }
+            
+            completionHandler(movies, nil, nil)
 
             // MARK: this also works without using SwiftyJSON
 //            if let response = responseObj as? [String : Any], let results = response["results"] as? [[String : Any]] {
@@ -69,8 +70,7 @@ struct APIService {
             if let response = task?.response as? HTTPURLResponse {
                 statusCode = response.statusCode
             }
-            
-            print("error in service ...")
+
             AlertUtil.shared.show(message: "Network Error! Try Again", viewcontroller: nil, autoClose: true, delay: 5.0)
             completionHandler(movies, error.localizedDescription, statusCode)
         }
