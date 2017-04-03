@@ -8,10 +8,11 @@
 
 import UIKit
 import AFNetworking
+import SnapKit
 
 class MovieDetailViewController: UIViewController {
 
-    let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: SCREEN_HEIGHT - NAVBAR_HEIGHT, width: SCREEN_WIDTH, height: NAVBAR_HEIGHT))
+    let navBar: UINavigationBar = UINavigationBar()
     
     var movie: Movie?
     
@@ -32,7 +33,6 @@ class MovieDetailViewController: UIViewController {
         let contentWidth = scrollView.bounds.width
         let contentHeight = scrollView.bounds.height
         scrollView.contentSize = CGSize(width: contentWidth, height: contentHeight)
-        // CGSize(width: SCREEN_WIDTH, height: SCREEN_HEIGHT)
         scrollView.delegate = self
         scrollView.maximumZoomScale = 2.0
         scrollView.minimumZoomScale = 0.8
@@ -60,16 +60,19 @@ class MovieDetailViewController: UIViewController {
                         self.posterImageView.alpha = 0.0
                         self.posterImageView.image = smallImage
                         
-                        UIView.animate(withDuration: 0.3, animations: { 
-                            self.posterImageView.alpha = 1.0
-                        }, completion: { (done) in
-                            self.posterImageView.setImageWith(largeImageRequest, placeholderImage: nil, success: { (largeRequest, largeResponse, largeImage) in
-                                
-                                self.posterImageView.image = largeImage
-                            }, failure: { (bigReq, bigRes, error) in
-//                                AlertUtil.shared.show(message: "Error In Network Access", viewcontroller: nil, autoClose: true, delay: 5.0)
+                        OperationQueue.main.addOperation {
+                            UIView.animate(withDuration: 0.3, animations: {
+                                self.posterImageView.alpha = 1.0
+                            }, completion: { (done) in
+                                self.posterImageView.setImageWith(largeImageRequest, placeholderImage: nil, success: { (largeRequest, largeResponse, largeImage) in
+                                    
+                                    self.posterImageView.image = largeImage
+                                }, failure: { (bigReq, bigRes, error) in
+                                    //                                AlertUtil.shared.show(message: "Error In Network Access", viewcontroller: nil, autoClose: true, delay: 5.0)
+                                })
                             })
-                        })
+                        }
+                        
                   }, failure: { (smallReq, smallRes, error) in
 //                        AlertUtil.shared.show(message: "Error In Network Access", viewcontroller: nil, autoClose: true, delay: 5.0)
             })
@@ -83,13 +86,18 @@ class MovieDetailViewController: UIViewController {
     private func setupBottomNavbar() {
         
         self.view.addSubview(navBar)
+        navBar.snp.makeConstraints { (make) in
+            make.left.right.bottom.equalToSuperview()
+            make.height.equalTo(NAVBAR_HEIGHT)
+        }
+        
         let backarrowImage = UIImage(named: "ic_arrow_back")
         let backButton = UIButton(frame: CGRect(x: 0, y: 0, width: backarrowImage!.size.width, height: backarrowImage!.size.height))
         backButton.setBackgroundImage(backarrowImage, for: .normal)
         backButton.addTarget(self, action: #selector(self.dismissView(_:)), for: .touchUpInside)
         backButton.showsTouchWhenHighlighted = true
         
-        let backItem = UIBarButtonItem.init(image: backarrowImage, style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.dismissView(_:)))
+        let backItem = UIBarButtonItem(image: backarrowImage, style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.dismissView(_:)))
 
         let navItem = UINavigationItem()
         navItem.leftBarButtonItem = backItem

@@ -18,9 +18,11 @@ public let SCREEN_WIDTH = UIScreen.main.bounds.size.width
 
 public let SCREEN_HEIGHT = UIScreen.main.bounds.size.height
 
+public let SEARCHBAR_HEIGHT = 40.0
+
 public let TABBAR_HEIGHT: CGFloat = 49.0
 
-public let NAVBAR_HEIGHT: CGFloat = 50
+public let NAVBAR_HEIGHT: CGFloat = 50.0
 
 public let NAVIGATIONBAR_COLOR = RGBA(r: 1, g: 218.0/255.0, b: 185.0/255.0, alpha: 1.0)
 

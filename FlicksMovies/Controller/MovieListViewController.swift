@@ -20,6 +20,10 @@ class MovieListViewController: UIViewController {
     
     let cellIdentifier = "MovieCell"
     
+    let searchBar = UISearchBar()
+    
+    let searchIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    
     let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
     
     var curMovies: [Movie] = [] // movies for current page
@@ -44,6 +48,7 @@ class MovieListViewController: UIViewController {
         super.viewDidLoad()
         
         setupNavbar()
+        setupSearchBar()
         setupTableView()
         fetchData(page: curPage)
         refreshControl.addTarget(self, action: #selector(self.loadNextPage(_:)), for: .valueChanged)
@@ -71,11 +76,43 @@ class MovieListViewController: UIViewController {
         navBar.titleTextAttributes = NSDictionary(objects: [textColor, textShadow, fontAttr!], forKeys: [NSForegroundColorAttributeName as NSCopying, NSShadowAttributeName as NSCopying, NSFontAttributeName as NSCopying]) as? [String : AnyObject]
         
         
-        let navItem = UINavigationItem(title: self.navbarTitle)
-        // TODO: add buttons for switching between tableview and collection
-        //        let doneItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: nil, action: "selector")
-        //        navItem.rightBarButtonItem = doneItem;
-        navBar.setItems([navItem], animated: false)
+        let navTitleItem = UINavigationItem(title: self.navbarTitle)
+        
+        // TODO: set up tableIcon and collectionIcon buttons
+    /*
+        let tableIconItem = UIBarButtonItem(image: UIImage(named: "table_icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.switchListView(_:)))
+        tableIconItem.tag = 1
+        
+        let collectionIconItem = UIBarButtonItem(image: UIImage(named: "collection_icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.switchListView(_:)))
+        collectionIconItem.tag = 2
+        
+        let navIconItem1 = UINavigationItem()
+        navIconItem1.leftBarButtonItem = tableIconItem
+        let navIconItem2 = UINavigationItem()
+        navIconItem2.rightBarButtonItem = collectionIconItem
+     */
+        
+        navBar.setItems([navTitleItem], animated: false)
+    }
+    
+    private func setupSearchBar() {
+        self.view.addSubview(searchBar)
+        searchBar.delegate = self
+        searchBar.snp.makeConstraints { (make) in
+            make.left.right.equalToSuperview()
+            make.top.equalToSuperview().offset(NAVBAR_HEIGHT)
+            make.height.equalTo(SEARCHBAR_HEIGHT)
+        }
+        
+        searchBar.insertSubview(searchIndicator, at: 0)
+        searchIndicator.isHidden = true
+        searchIndicator.hidesWhenStopped = true
+
+        searchIndicator.snp.makeConstraints { (make) in
+            make.width.height.equalTo(30)
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().offset(-25)
+        }
     }
     
     private func setupTableView() {
@@ -84,16 +121,21 @@ class MovieListViewController: UIViewController {
         tableView.dataSource = self
         tableView.separatorColor = nil
         tableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
+        tableView.tableFooterView = UIView() // don't show empty cells
         
         tableView.snp.makeConstraints { (make) in
             make.left.right.bottom.equalToSuperview()
-            make.top.equalToSuperview().offset(NAVBAR_HEIGHT)
+            make.top.equalTo(self.searchBar.snp.bottom)
         }
     }
     
     @objc private func loadNextPage(_ refresher: UIRefreshControl) {
         curPage += 1
         fetchData(page: curPage)
+    }
+    
+    @objc private func switchListView(_ sender: UIBarButtonItem) {
+        NSLog("switching list view, sender tag: \(sender.tag)")
     }
     
     private func fetchData(page: Int) {
@@ -166,5 +208,45 @@ extension MovieListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150.0
+    }
+}
+
+extension MovieListViewController: UISearchBarDelegate {
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.bringSubview(toFront: searchIndicator)
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchIndicator.stopAnimating()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+
+        if searchText.characters.count == 0 {
+            
+            searchIndicator.stopAnimating()
+            if let savedMovies = paginatedMovies.getMoviesFor(page: curPage) {
+                curMovies = savedMovies
+                self.tableView.reloadData()
+            }
+        } else {
+            searchIndicator.isHidden = false
+            if !searchIndicator.isAnimating {
+                searchIndicator.startAnimating()
+            }
+            
+            if let savedMovies = paginatedMovies.getMoviesFor(page: curPage) {
+                curMovies = savedMovies.filter {
+                    String(describing: $0.title).range(of: searchText, options: .caseInsensitive, range: nil, locale: nil) != nil
+                }
+            }
+        }
+        self.tableView.reloadData()
+        
+        // delay stopping searchIndicator for half second for showing search-related delay effect
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+            self.searchIndicator.stopAnimating()
+        }
     }
 }
