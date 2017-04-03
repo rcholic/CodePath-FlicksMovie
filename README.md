@@ -41,8 +41,11 @@ Here's a walkthrough of implemented user stories:
 ![](./screencast/screen2.gif)
 
 ## Notes
+- I originally created two UIViewController classes for listing movies of Now Playing and Top Rated, but I noticed that more than 98% of the code is identical:
 
-Describe any challenges encountered while building the app.
+    To keep the code less redundant, I decided to do a huge refactoring - creating a generic **MovieListViewController** class that can be used for both **Now Playing** and **Top Rated**. It turned out be a very nice design - saving me an entire class of code (approximately 200 LOC!)
+
+- I created a custom tab bar controller that is added as the RootViewController to the *key window*, which is a nice adventure that works very well :tada:
 
 ## License
 
