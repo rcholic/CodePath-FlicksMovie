@@ -12,9 +12,9 @@ import SnapKit
 
 class MovieListViewController: UIViewController {
     
-    var movieAPI: MovieAPI
+    let movieAPI: MovieAPI
     
-    var navbarTitle: String
+    let navbarTitle: String
     
     let paginatedMovies = Pagination()
     
@@ -78,19 +78,16 @@ class MovieListViewController: UIViewController {
         
         let navTitleItem = UINavigationItem(title: self.navbarTitle)
         
-        // TODO: set up tableIcon and collectionIcon buttons
-    /*
+        // MARK: set up tableIcon and collectionIcon buttons
+    
         let tableIconItem = UIBarButtonItem(image: UIImage(named: "table_icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.switchListView(_:)))
         tableIconItem.tag = 1
         
         let collectionIconItem = UIBarButtonItem(image: UIImage(named: "collection_icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.switchListView(_:)))
         collectionIconItem.tag = 2
         
-        let navIconItem1 = UINavigationItem()
-        navIconItem1.leftBarButtonItem = tableIconItem
-        let navIconItem2 = UINavigationItem()
-        navIconItem2.rightBarButtonItem = collectionIconItem
-     */
+        navTitleItem.rightBarButtonItem = tableIconItem // toggle tableIconItem and collectionIconItem
+        // navTitleItem.leftBarButtonItem = collectionIconItem
         
         navBar.setItems([navTitleItem], animated: false)
     }
@@ -142,7 +139,7 @@ class MovieListViewController: UIViewController {
         
         SVProgressHUD.showInfo(withStatus: "Fetching Movies...")
         APIService.shared.getMoviesFor(movieAPI: self.movieAPI, page: page) { (movies: [Movie], errorMsg: String?, statusCode: Int?) in
-            print("fetching ....")
+            
             OperationQueue.main.addOperation({
                 
                 // save movies in memory cache
@@ -161,6 +158,7 @@ class MovieListViewController: UIViewController {
                 if statusCode != nil {
                     error = "\(error), error code: \(statusCode!)"
                 }
+                SVProgressHUD.dismiss()
                 self.refreshControl.endRefreshing()
             })
         }

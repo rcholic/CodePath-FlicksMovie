@@ -19,17 +19,6 @@ class CustomTabBarViewController: UITabBarController {
     }
     
     private func addAllChildViewControllers() {
-        /*
-        let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
-        
-        let nowPlayingVC = mainStoryboard.instantiateViewController(withIdentifier: "MovieListBoard") as! MovieListViewController
-        nowPlayingVC.navbarTitle = "Now Playing"
-        nowPlayingVC.movieAPI = .nowPlaying
-        
-        let topRatedVC = mainStoryboard.instantiateViewController(withIdentifier: "MovieListBoard") as! MovieListViewController
-        topRatedVC.navbarTitle = "Top Rated"
-        topRatedVC.movieAPI = .topRated
-        */
         
         let nowPlayingVC2 = MovieListViewController(navbarTitle: "Now Playing", movieAPI: MovieAPI.nowPlaying)
         
@@ -53,7 +42,7 @@ class CustomTabBarViewController: UITabBarController {
         childController.tabBarItem.setTitleTextAttributes(
             [NSForegroundColorAttributeName: HIGHLIGHTED_FONT_COLOR], for: UIControlState.selected)
         
-//        childController.navigationController?.navigationBar.isHidden = true // hide navigation bar
+    //    childController.navigationController?.navigationBar.isHidden = true // hide navigation bar
         addChildViewController(childController)
     }
 

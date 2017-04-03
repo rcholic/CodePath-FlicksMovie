@@ -36,6 +36,10 @@ class MovieDetailViewController: UIViewController {
         scrollView.delegate = self
         scrollView.maximumZoomScale = 2.0
         scrollView.minimumZoomScale = 0.8
+        
+        posterImageView.snp.makeConstraints { (make) in
+            make.left.right.bottom.top.equalToSuperview()
+        }
         overviewLabel.sizeToFit()
         overviewLabel.backgroundColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
         
