@@ -32,12 +32,13 @@ The following **additional** features are implemented:
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
-![](https://media.giphy.com/media/3oKIP7hu9IbtR3crni/giphy.gif)
+<!-- ![](https://media.giphy.com/media/3oKIP7hu9IbtR3crni/giphy.gif)
 
-![](https://media.giphy.com/media/l0IynChAHsS2M8gIo/giphy.gif)
+![](https://media.giphy.com/media/l0IynChAHsS2M8gIo/giphy.gif) -->
 
-<!-- ![](./screencast/screen1.gif)
-![](./screencast/screen2.gif) -->
+![](./screencast/screen1.gif)
+
+![](./screencast/screen2.gif)
 
 ## Notes
 
