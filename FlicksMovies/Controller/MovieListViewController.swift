@@ -34,6 +34,8 @@ class MovieListViewController: UIViewController {
     
     fileprivate let refreshControl = UIRefreshControl()
     
+    fileprivate let refreshControl2 = UIRefreshControl()
+    
     fileprivate let tableView = UITableView()
     
     fileprivate var curPage = 1
@@ -67,7 +69,8 @@ class MovieListViewController: UIViewController {
         setupSearchBar()
         setupTableView()
         fetchData(page: curPage)
-        refreshControl.addTarget(self, action: #selector(self.loadNextPage(_:)), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(self.loadNextPage(_:)), for: .valueChanged) // for tableView to use
+        refreshControl2.addTarget(self, action: #selector(self.loadNextPage(_:)), for: .valueChanged) // for collectionview to use
         tableView.insertSubview(refreshControl, at: 0)
     }
     
@@ -156,6 +159,7 @@ class MovieListViewController: UIViewController {
                     // cache the movies for this page
                     self.paginatedMovies.insertMovies(movies: movies, page: page)
                     self.refreshControl.endRefreshing()
+                    self.refreshControl2.endRefreshing()
                     return
                 }
                 
@@ -164,6 +168,7 @@ class MovieListViewController: UIViewController {
                 }
                 SVProgressHUD.dismiss()
                 self.refreshControl.endRefreshing()
+                self.refreshControl2.endRefreshing()
             })
         }
     }
@@ -172,27 +177,29 @@ class MovieListViewController: UIViewController {
     private func handleSwitchView(to tag: Int) {
 
         activeViewTag = tag // update the active tag
+        
+        var fromView: UIView
+        var toView: UIView
+        
         if (tag == TABLEVIEW_TAG) {
-            self.collectionView.removeFromSuperview()
-            // mount tableView
-            self.view.addSubview(tableView)
-            tableView.snp.makeConstraints { (make) in
-                make.left.right.bottom.equalToSuperview()
-                make.top.equalTo(self.searchBar.snp.bottom)
-            }
-            
+            fromView = collectionView
+            toView = tableView
         } else {
-            self.tableView.removeFromSuperview()
-            // mount collectionView
-            collectionView.dataSource = self
-            collectionView.delegate = self
-            self.view.addSubview(collectionView)
-            collectionView.snp.makeConstraints { (make) in
+            fromView = tableView
+            toView = collectionView
+        }
+        
+        let flipDirection: UIViewAnimationOptions = (activeViewTag == TABLEVIEW_TAG) ? .transitionFlipFromRight : .transitionFlipFromLeft
+        UIView.transition(from: fromView, to: toView, duration: 0.3, options: flipDirection) { (done) in
+            fromView.removeFromSuperview()
+            self.view.addSubview(toView)
+            toView.snp.makeConstraints({ (make) in
                 make.left.right.bottom.equalToSuperview()
                 make.top.equalTo(self.searchBar.snp.bottom)
-            }
+            })
+            self.refreshCurView(viewTag: self.activeViewTag)
         }
-        refreshCurView(viewTag: activeViewTag)
+        
     }
     
     fileprivate func refreshCurView(viewTag: Int) {
@@ -222,9 +229,11 @@ class MovieListViewController: UIViewController {
         layout.minimumInteritemSpacing = 2.0
         layout.minimumLineSpacing = 2.0
         let gridView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        gridView.dataSource = self
+        gridView.delegate = self
         gridView.backgroundColor = UIColor.white
         gridView.register(UINib(nibName: "MovieCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: self.collectionCellId)
-        gridView.insertSubview(self.refreshControl, at: 0) // pull to refresh
+        gridView.insertSubview(self.refreshControl2, at: 0) // pull to refresh
         
         return gridView
     }()
