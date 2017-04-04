@@ -46,7 +46,9 @@ public let NOW_PLAYING_URL: String = "\(SERVER_URL)/now_playing?api_key=\(API_KE
 
 public let TOP_RATED_URL: String = "\(SERVER_URL)/top_rated?api_key=\(API_KEY)" // TODO:  change page number
 
+public let TABLEVIEW_TAG: Int = 0
 
+public let COLLECTIONVIEW_TAG: Int = 1
 
 public func RGBA(r: CGFloat, g: CGFloat, b: CGFloat, alpha: CGFloat) -> UIColor {
     return UIColor(red: r, green: g, blue: b, alpha: alpha)

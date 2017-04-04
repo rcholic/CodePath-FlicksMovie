@@ -12,27 +12,43 @@ import SnapKit
 
 class MovieListViewController: UIViewController {
     
-    let movieAPI: MovieAPI
+    fileprivate let movieAPI: MovieAPI
     
-    let navbarTitle: String
+    internal let navbarTitle: String
     
-    let paginatedMovies = Pagination()
+    fileprivate let navTitleItem = UINavigationItem()
     
-    let cellIdentifier = "MovieCell"
+    fileprivate let paginatedMovies = Pagination()
     
-    let searchBar = UISearchBar()
+    fileprivate let tableviewCellIdentifier = "MovieCell"
     
-    let searchIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    fileprivate let collectionCellId = "MovieCollectionCell"
     
-    let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
+    fileprivate let searchBar = UISearchBar()
     
-    var curMovies: [Movie] = [] // movies for current page
+    fileprivate let searchIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
-    let refreshControl = UIRefreshControl()
+    fileprivate let mainStoryboard = UIStoryboard.init(name: "Main", bundle: nil)
     
-    let tableView = UITableView()
+    fileprivate var curMovies: [Movie] = [] // movies for current page
     
-    var curPage = 1
+    fileprivate let refreshControl = UIRefreshControl()
+    
+    fileprivate let tableView = UITableView()
+    
+    fileprivate var curPage = 1
+    
+    // MARK: toggle UITableView and UICollectionView
+    private (set) var activeViewTag: Int = TABLEVIEW_TAG {
+        didSet {
+            if activeViewTag == TABLEVIEW_TAG {
+                navTitleItem.rightBarButtonItem = collectionIconItem
+                
+            } else {
+                navTitleItem.rightBarButtonItem = tableIconItem
+            }
+        }
+    }
     
     init(navbarTitle: String, movieAPI: MovieAPI) {
         self.navbarTitle = navbarTitle
@@ -75,20 +91,8 @@ class MovieListViewController: UIViewController {
         
         navBar.titleTextAttributes = NSDictionary(objects: [textColor, textShadow, fontAttr!], forKeys: [NSForegroundColorAttributeName as NSCopying, NSShadowAttributeName as NSCopying, NSFontAttributeName as NSCopying]) as? [String : AnyObject]
         
-        
-        let navTitleItem = UINavigationItem(title: self.navbarTitle)
-        
-        // MARK: set up tableIcon and collectionIcon buttons
-    
-        let tableIconItem = UIBarButtonItem(image: UIImage(named: "table_icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.switchListView(_:)))
-        tableIconItem.tag = 1
-        
-        let collectionIconItem = UIBarButtonItem(image: UIImage(named: "collection_icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.switchListView(_:)))
-        collectionIconItem.tag = 2
-        
-        navTitleItem.rightBarButtonItem = tableIconItem // toggle tableIconItem and collectionIconItem
-        // navTitleItem.leftBarButtonItem = collectionIconItem
-        
+        navTitleItem.title = self.navbarTitle
+        activeViewTag = TABLEVIEW_TAG
         navBar.setItems([navTitleItem], animated: false)
     }
     
@@ -117,7 +121,7 @@ class MovieListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorColor = nil
-        tableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: cellIdentifier)
+        tableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: tableviewCellIdentifier)
         tableView.tableFooterView = UIView() // don't show empty cells
         
         tableView.snp.makeConstraints { (make) in
@@ -132,7 +136,7 @@ class MovieListViewController: UIViewController {
     }
     
     @objc private func switchListView(_ sender: UIBarButtonItem) {
-        NSLog("switching list view, sender tag: \(sender.tag)")
+        handleSwitchView(to: sender.tag)
     }
     
     private func fetchData(page: Int) {
@@ -146,7 +150,7 @@ class MovieListViewController: UIViewController {
                 guard var error = errorMsg else {
                     // prepend
                     self.curMovies.insert(contentsOf: movies, at: 0)
-                    self.tableView.reloadData()
+                    self.refreshCurView(viewTag: self.activeViewTag)
                     SVProgressHUD.dismiss()
                     
                     // cache the movies for this page
@@ -163,6 +167,67 @@ class MovieListViewController: UIViewController {
             })
         }
     }
+    
+    // MARK: switch to the view with the given viewTag
+    private func handleSwitchView(to tag: Int) {
+
+        activeViewTag = tag // update the active tag
+        if (tag == TABLEVIEW_TAG) {
+            self.collectionView.removeFromSuperview()
+            // mount tableView
+            self.view.addSubview(tableView)
+            tableView.snp.makeConstraints { (make) in
+                make.left.right.bottom.equalToSuperview()
+                make.top.equalTo(self.searchBar.snp.bottom)
+            }
+            
+        } else {
+            self.tableView.removeFromSuperview()
+            // mount collectionView
+            collectionView.dataSource = self
+            collectionView.delegate = self
+            self.view.addSubview(collectionView)
+            collectionView.snp.makeConstraints { (make) in
+                make.left.right.bottom.equalToSuperview()
+                make.top.equalTo(self.searchBar.snp.bottom)
+            }
+        }
+        refreshCurView(viewTag: activeViewTag)
+    }
+    
+    fileprivate func refreshCurView(viewTag: Int) {
+        if (viewTag == TABLEVIEW_TAG) {
+            self.tableView.reloadData()
+        } else {
+            self.collectionView.reloadData()
+        }
+    }
+
+    private lazy var tableIconItem: UIBarButtonItem = {
+        let iconItem = UIBarButtonItem(image: UIImage(named: "table_icon"), style: .plain, target: self, action: #selector(self.switchListView(_:)))
+        iconItem.tag = TABLEVIEW_TAG
+        return iconItem
+    }()
+    
+    private lazy var collectionIconItem: UIBarButtonItem = {
+        let iconItem = UIBarButtonItem(image: UIImage(named: "collection_icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.switchListView(_:)))
+        iconItem.tag = COLLECTIONVIEW_TAG
+        
+        return iconItem
+    }()
+    
+    private lazy var collectionView: UICollectionView = {
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumInteritemSpacing = 2.0
+        layout.minimumLineSpacing = 2.0
+        let gridView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        gridView.backgroundColor = UIColor.white
+        gridView.register(UINib(nibName: "MovieCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: self.collectionCellId)
+        gridView.insertSubview(self.refreshControl, at: 0) // pull to refresh
+        
+        return gridView
+    }()
 }
 
 extension MovieListViewController: UITableViewDelegate {
@@ -189,7 +254,7 @@ extension MovieListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! MovieTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: tableviewCellIdentifier) as! MovieTableViewCell
         let movie = curMovies[indexPath.row]
 
         let backgroundView = UIView()
@@ -224,7 +289,6 @@ extension MovieListViewController: UISearchBarDelegate {
             searchIndicator.stopAnimating()
             if let savedMovies = paginatedMovies.getMoviesFor(page: curPage) {
                 curMovies = savedMovies
-                self.tableView.reloadData()
             }
         } else {
             searchIndicator.isHidden = false
@@ -238,11 +302,47 @@ extension MovieListViewController: UISearchBarDelegate {
                 }
             }
         }
-        self.tableView.reloadData()
+
+        self.refreshCurView(viewTag: self.activeViewTag)
+        
         
         // delay stopping searchIndicator for half second for showing search-related delay effect
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
             self.searchIndicator.stopAnimating()
         }
+    }
+}
+
+extension MovieListViewController: UICollectionViewDelegate {
+   
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if let targetVC = mainStoryboard.instantiateViewController(withIdentifier: "MovieDetailBoard") as? MovieDetailViewController {
+            let movie = curMovies[indexPath.row]
+            targetVC.movie = movie
+            self.present(targetVC, animated: true, completion: nil)
+        }
+        collectionView.deselectItem(at: indexPath, animated: true)
+    }
+}
+
+extension MovieListViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return CGSize(width: 135, height: 135)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return curMovies.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: collectionCellId, for: indexPath) as! MovieCollectionViewCell
+        let movie = curMovies[indexPath.row]
+        cell.bind(movie)
+        
+        return cell
     }
 }
