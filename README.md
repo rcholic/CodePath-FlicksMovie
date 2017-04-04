@@ -36,6 +36,7 @@ Here's a walkthrough of implemented user stories:
 
 ![](https://media.giphy.com/media/l0IynChAHsS2M8gIo/giphy.gif) -->
 **Switch between Views**
+
 ![](./screencast/screen3.gif)
 
 ![](./screencast/screen1.gif)
