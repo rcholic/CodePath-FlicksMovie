@@ -31,30 +31,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         if let posterImagePath = movie.posterPath {
             
             let smallImagePath = "\(SMALL_POSTER_IMAGE_BASE_URL)\(posterImagePath)"
-            
-            if let url = URL(string: smallImagePath) {
-                let imageRequest = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.returnCacheDataElseLoad, timeoutInterval: 300) // keep 5 minutes
-                
-                posterImageView.setImageWith(imageRequest, placeholderImage: nil, success: { (imageRequest: URLRequest, imageResponse: HTTPURLResponse?, image: UIImage) in
-                    
-                    OperationQueue.main.addOperation({
-                        if let _ = imageResponse {
-                            self.posterImageView.alpha = 0.0
-                            self.posterImageView.image = image
-                            UIView.animate(withDuration: 0.3, animations: {
-                                self.posterImageView.alpha = 1.0
-                            })
-                        } else {
-                            self.posterImageView.image = image
-                        }
-                    })
-                    
-                }, failure: { (imageRequest, imageResponse, error) in
-                    
-                    // TODO: handle failure
-                })
-                
-            }
+            posterImageView.fadeInImageWith(remoteImgUrl: smallImagePath, placeholderImage: nil)
             // TODO: load placeholder image for movie without posters
         }
     }
