@@ -226,8 +226,9 @@ class MovieListViewController: UIViewController {
     private lazy var collectionView: UICollectionView = {
         
         let layout = UICollectionViewFlowLayout()
-        layout.minimumInteritemSpacing = 2.0
-        layout.minimumLineSpacing = 2.0
+//        layout.sectionInset = UIEdgeInsetsMake(3, 3, 0, 3)
+//        layout.minimumInteritemSpacing = 2.0
+//        layout.minimumLineSpacing = 2.0
         let gridView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         gridView.dataSource = self
         gridView.delegate = self
@@ -339,7 +340,8 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: 135, height: 135)
+        let width = collectionView.bounds.size.width / 4
+        return CGSize(width: width, height: width)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

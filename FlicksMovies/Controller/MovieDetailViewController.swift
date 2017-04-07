@@ -37,8 +37,13 @@ class MovieDetailViewController: UIViewController {
         scrollView.maximumZoomScale = 2.0
         scrollView.minimumZoomScale = 0.8
         
+        scrollView.snp.makeConstraints { (make) in
+            make.top.left.right.equalToSuperview()
+            make.bottom.equalTo(navBar.snp.top)
+        }
+        
         posterImageView.snp.makeConstraints { (make) in
-            make.left.right.bottom.top.equalToSuperview()
+            make.left.right.bottom.top.equalTo(self.scrollView)
         }
         overviewLabel.sizeToFit()
         overviewLabel.backgroundColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
@@ -92,7 +97,7 @@ class MovieDetailViewController: UIViewController {
         
         self.view.addSubview(navBar)
         navBar.snp.makeConstraints { (make) in
-            make.left.right.bottom.equalToSuperview()
+            make.left.right.bottom.equalTo(self.view)
             make.height.equalTo(NAVBAR_HEIGHT)
         }
         
@@ -120,14 +125,22 @@ extension MovieDetailViewController: UIScrollViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         UIView.animate(withDuration: 0.8) {
             self.overviewLabel.alpha = 1.0
-            self.navBar.alpha = 1.0
+            
+            // show navBar
+            self.navBar.snp.updateConstraints({ (make) in
+                make.height.equalTo(NAVBAR_HEIGHT)
+            })
         }
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         UIView.animate(withDuration: 0.5) {
             self.overviewLabel.alpha = 0.0
-            self.navBar.alpha = 0.0
+            
+            // hide navBar
+            self.navBar.snp.updateConstraints({ (make) in
+                make.height.equalTo(0)
+            })
         }
     }
 }

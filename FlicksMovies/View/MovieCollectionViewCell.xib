@@ -18,20 +18,16 @@
                 <rect key="frame" x="0.0" y="0.0" width="152" height="152"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="00o-A4-spE">
-                        <rect key="frame" x="8" y="8" width="130" height="130"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="130" id="45L-QL-zId"/>
-                            <constraint firstAttribute="height" constant="130" id="v4Y-4N-G8S"/>
-                        </constraints>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="00o-A4-spE">
+                        <rect key="frame" x="24" y="24" width="105" height="105"/>
                     </imageView>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="00o-A4-spE" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="4ZZ-lN-E6w"/>
-                <constraint firstAttribute="bottom" secondItem="00o-A4-spE" secondAttribute="bottom" constant="8" id="6b1-c7-Al0"/>
-                <constraint firstItem="00o-A4-spE" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="jfg-jF-Eua"/>
-                <constraint firstAttribute="trailing" secondItem="00o-A4-spE" secondAttribute="trailing" constant="8" id="uIw-jS-bbV"/>
+                <constraint firstAttribute="bottom" secondItem="00o-A4-spE" secondAttribute="bottom" id="JGm-41-ULm"/>
+                <constraint firstItem="00o-A4-spE" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="L4W-Id-aVR"/>
+                <constraint firstAttribute="trailing" secondItem="00o-A4-spE" secondAttribute="trailing" id="d1D-3T-0Zm"/>
+                <constraint firstItem="00o-A4-spE" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="qya-WH-BJ5"/>
             </constraints>
             <size key="customSize" width="152" height="152"/>
             <connections>
